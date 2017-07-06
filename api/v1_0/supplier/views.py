@@ -72,8 +72,6 @@ class PolygonList(APIView):
         if lat and lng:
             point = Point(float(lng), float(lat))
             distance = Distance(km=10)
-            print point
-            print distance
             polygons = polygons.filter(
                 point__distance_lt=(point, distance)
             ).distance(point).order_by('distance')
