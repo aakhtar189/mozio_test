@@ -3,25 +3,6 @@ from __future__ import unicode_literals
 from django.db import models
 from django.contrib.gis.db import models as gis_model
 
-
-# class Location(models.Model):
-#     # 'name' can also represent address value
-#     name = models.CharField(max_length=255)
-#     address = models.CharField(max_length=255, null=True, blank=True)
-#     city = models.CharField(max_length=255)
-#     state = models.CharField(max_length=255)
-#     is_hometown = models.BooleanField(default=False)
-#     zip_code = models.CharField(max_length=255, null=True, blank=True)
-#     point = models.PointField(srid=4326, null=True, blank=True)
-#     objects = models.GeoManager()
-#
-#     class Meta:
-#         verbose_name = "Location"
-#         verbose_name_plural = "Locations"
-#
-#     def __unicode__(self):
-#         return self.name
-
 # Create your models here.
 class Supplier(models.Model):
     name = models.CharField(max_length=255)
