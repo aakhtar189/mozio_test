@@ -30,7 +30,7 @@ class SupplierList(APIView):
         return Response({"supplier": serializer.data}, status=status.HTTP_201_CREATED)
 
 
-class SnippetDetail(APIView):
+class SupplierDetail(APIView):
     """
     Retrieve, update or delete a supplier instance.
     """
@@ -85,7 +85,6 @@ class PolygonList(APIView):
         """
         serializer = PolygonSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        print serializer.data
         lat = serializer.validated_data['lat']
         lng = serializer.validated_data['lng']
         point = Point(float(lng), float(lat))
@@ -97,3 +96,32 @@ class PolygonList(APIView):
         )
         serializer = PolygonDetailSerializer(polygon)
         return Response({"polygon": serializer.data}, status=status.HTTP_201_CREATED)
+
+
+class PolygonDetail(APIView):
+    """
+    Retrieve, update or delete a polygon instance.
+    """
+    def get_object(self, pk):
+        try:
+            return Polygon.objects.get(pk=pk)
+        except Polygon.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk, format=None):
+        polygon = self.get_object(pk)
+        serializer = PolygonDetailSerializer(polygon)
+        return Response({"polygon": serializer.data}, status=status.HTTP_200_OK)
+
+    def put(self, request, pk, format=None):
+        polygon = self.get_object(pk)
+        serializer = PolygonDetailSerializer(polygon, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"polygon": serializer.data}, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk, format=None):
+        polygon = self.get_object(pk)
+        polygon.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)                        

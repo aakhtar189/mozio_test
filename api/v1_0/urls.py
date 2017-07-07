@@ -15,11 +15,11 @@ Including another URLconf
 """
 from django.conf.urls import url
 
-from api.v1_0.supplier.views import SupplierList, SnippetDetail, PolygonList
+from api.v1_0.supplier.views import SupplierList, SupplierDetail, PolygonList, PolygonDetail
 
 urlpatterns = [
     url(r'^supplier/$', SupplierList.as_view()),
-    url(r'^supplier/(?P<pk>[0-9]*)/$', SnippetDetail.as_view()),
-
+    url(r'^supplier/(?P<pk>[0-9]*)/$', SupplierDetail.as_view()),
     url(r'^polygon/$', PolygonList.as_view()),
+    url(r'^polygon/(?P<pk>[0-9]*)/$', PolygonDetail.as_view()),
 ]
