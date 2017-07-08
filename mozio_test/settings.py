@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'wbgrs1nri&i2%hd1lbjvlv7_q8rkky-s&c*3-uad+-z$u31ho6'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -74,14 +74,24 @@ WSGI_APPLICATION = 'mozio_test.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'mozio',
-        'HOST': 'localhost',
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.contrib.gis.db.backends.postgis',
+            'NAME': 'mozio',
+            'HOST': 'localhost',
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.contrib.gis.db.backends.postgis',
+            'NAME': 'mozio',
+            'password': 'asif1234',
+            'HOST': 'mozio.cwrbbkxdddop.ap-south-1.rds.amazonaws.com',
+            'PORT': 5432,
+        }
+    }
 
 
 # Password validation
